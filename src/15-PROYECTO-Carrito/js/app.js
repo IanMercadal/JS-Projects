@@ -15,7 +15,23 @@ function agregarCurso(e){
     e.preventDefault();
 
     if(e.target.classList.contains('agregar-carrito')){
-        console.log(e.target);
+        const cursoSeleccionado = e.target.parentElement.parentElement;
+        leerDatosCurso(cursoSeleccionado);
     }
 }
 
+
+// Leer el contenido de HTML al que le dimos click y extrae la info del curso
+function leerDatosCurso(curso){
+    console.log(curso);
+
+    // Creando un objeto con el contenido del curso actual
+    const infoCurso = {
+        imagen: curso.querySelector('img').src,
+        titulo: curso.querySelector('h4').textContent,
+        precio: curso.querySelector('.precio span').textContent,
+        id: curso.querySelector('a').getAttribute('data-id'),
+        cantidad: 1
+    }
+    console.log(infoCurso);
+}
