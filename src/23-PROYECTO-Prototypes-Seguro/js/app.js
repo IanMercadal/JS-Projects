@@ -5,6 +5,49 @@ function Seguro(marca,year,tipo){
     this.year = year;
     this.tipo = tipo;
 }
+// Realiza la cotización con los datos
+Seguro.prototype.cotizarSeguro = function(){
+    /*
+        1 = Americano 1.15
+        2 = Asiatico 1.05
+        3 = Europeo 1.35
+    */
+        let cantidad;
+        const base = 2000;
+
+        switch(this.marca){
+            case '1':
+                cantidad = base * 1.15;
+            case '2':
+                cantidad = base * 1.05;
+            case '3':
+                cantidad = base * 1.35;
+            default:
+                break;
+        }
+
+        // Leer el año
+        const diferencia = new Date().getFullYear() - this.year;
+
+        // Cada año que la diferencia es mayor, el coste va a reducirse un 3%
+        cantidad -= ((diferencia * 3) * cantidad) / 100;
+
+        /*
+            Si el seguro es básico se multiplica por un 30% más
+            Si el seguro es básico se multiplica por un 50% más
+        */
+
+        if(this.tipo === 'basico'){
+            cantidad *= 1.30;
+        }
+        else{
+            cantidad *= 1.50;
+        }
+
+        return cantidad;
+}
+
+
 function UI(){};
 
 UI.prototype.llenarOpciones = () => {
@@ -19,6 +62,27 @@ UI.prototype.llenarOpciones = () => {
         option.textContent = i;
         selectYear.appendChild(option);
     }
+}
+
+// Muestra alertas en pantalla
+UI.prototype.mostrarMensaje = (mensaje, tipo) => {
+    const div = document.createElement("div");
+    if(tipo === 'error'){
+        div.classList.add('error');
+    }
+    else{
+        div.classList.add('correcto')
+    }
+    div.classList.add('mensaje', 'mt-10');
+    div.textContent = mensaje;
+
+    // Insertar en HTML
+    const formulario = document.querySelector('#cotizar-seguro');
+    formulario.insertBefore(div, document.querySelector('#resultado'));
+
+    setTimeout( () => {
+        div.remove();
+    }, 3000);
 }
 
 // Instanciar UI
@@ -47,9 +111,14 @@ function cotizarSeguro(e) {
     const tipo = document.querySelector('input[name="tipo"]:checked').value;
 
     if(marca === '' || year === '' || tipo === ''){
-        console.log("No paso");
+        ui.mostrarMensaje("Todos los campos son obligatorios","error");
+        return;
     }
-    else{
-        console.log("Si paso");
-    }
+    ui.mostrarMensaje("Cotizando...","exito");
+
+    // Instanciar el seguro
+    const seguro = new Seguro(marca, year, tipo);
+    seguro.cotizarSeguro();
+
+    // Utiliozar
 }
