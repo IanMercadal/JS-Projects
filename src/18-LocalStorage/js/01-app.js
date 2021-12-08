@@ -1,4 +1,4 @@
-localStorage.setItem('nombe',1);
+localStorage.setItem('nombre',1);
 
 const producto = {
     nombre: "Monitor 24 pulgadas",
