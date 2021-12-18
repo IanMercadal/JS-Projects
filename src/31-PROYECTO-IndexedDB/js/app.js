@@ -48,7 +48,6 @@ const citaObj = {
 
 
 function datosCita(e) {
-    //  console.log(e.target.name) // Obtener el Input
      citaObj[e.target.name] = e.target.value;
 }
 
@@ -250,8 +249,6 @@ function nuevaCita(e) {
         objectStore.add(citaObj);
 
         transaction.oncomplete = function () {
-            console.log("Cita agregada");
-
         // Mostrar mensaje de que todo esta bien...
         ui.imprimirAlerta('Se agregó correctamente');
         }
@@ -280,9 +277,18 @@ function reiniciarObjeto() {
 
 
 function eliminarCita(id) {
-    administrarCitas.eliminarCita(id);
+    const transaction = DB.transaction(['citas'], 'readwrite');
+    const objectStore = transaction.objectStore('citas');
 
-    ui.imprimirCitas()
+    objectStore.delete(id);
+
+    transaction.oncomplete = () => {
+        ui.imprimirCitas();
+    }
+
+    transaction.onerror = () => {
+        console.log('Hubo un error');
+    }
 }
 
 function cargarEdicion(cita) {
@@ -323,8 +329,6 @@ function crearDB() {
 
     // Si todo va bien
     crearDB.onsuccess = function() {
-        console.log("Bd creada");
-
         DB = crearDB.result;
 
         // Mostar citas al cargar (Pero Indexdb ya está listo)
