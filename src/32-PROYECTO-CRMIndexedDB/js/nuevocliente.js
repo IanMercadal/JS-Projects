@@ -13,7 +13,7 @@
 
         abrirConexion.onerror = function() {
             console.error('Hubo un error');
-        ;}
+        }
 
         abrirConexion.onsuccess = function() {
             DB = abrirConexion.result;
