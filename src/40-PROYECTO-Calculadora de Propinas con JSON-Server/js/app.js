@@ -35,7 +35,15 @@ function guardarCliente() {
         cliente = {...cliente, mesa, hora}
 
         // Ocultar Modal
-        const modalFormulario = document.querySelector(#formulario);
+        const modalFormulario = document.querySelector('#formulario');
         const modalBootstrap = bootstrap.Modal.getInstance(modalFormulario);
         modalBootstrap.hide();
+
+        // Mostrar las secciones
+        mostrarSecciones();
+}
+
+function mostrarSecciones() {
+    const seccionesOcultas = document.querySelectorAll('.d-none');
+    seccionesOcultas.forEach(seccion => seccion.classList.remove('d-none'));
 }
