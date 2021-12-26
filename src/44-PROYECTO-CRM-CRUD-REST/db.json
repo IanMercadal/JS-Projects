@@ -13,6 +13,13 @@
       "telefono": "666666666",
       "empresa": "Colegio Santa Monica",
       "id": 27
+    },
+    {
+      "nombre": "Prueba3",
+      "email": "prueba@correo.es",
+      "telefono": "666666666",
+      "empresa": "Colegio Santa Monica2",
+      "id": 28
     }
   ]
 }
