@@ -13,13 +13,6 @@
       "telefono": "666666666",
       "empresa": "Colegio Santa Monica",
       "id": 27
-    },
-    {
-      "nombre": "Miquel",
-      "email": "Miquel@correo.com",
-      "telefono": "66666666",
-      "empresa": "IES Francesc De Borja Moll",
-      "id": 28
     }
   ]
 }
